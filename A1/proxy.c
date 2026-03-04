@@ -86,10 +86,10 @@ int main(int argc, char *argv[]){
         close(server_fd);  // child does not listen
         
         printf("Child handling client\n");
-
+        printf("Waiting to receive request...\n");
         char buffer[4096];
         int bytes_received = recv(client_fd, buffer, sizeof(buffer) - 1, 0);
-         
+        printf("Waiting to receive request...\n");
         if (bytes_received <= 0) {
             close(client_fd);
             exit(0);
@@ -113,9 +113,12 @@ int main(int argc, char *argv[]){
         
     }
 
-    // Parse request line
+    // ---- PARSE REQUEST LINE ----
        char method[16], url[2048], version[16];
             sscanf(buffer, "%s %s %s", method, url, version);
+
+
+
 
             printf("Method: %s\n", method);
             printf("URL: %s\n", url);
@@ -187,14 +190,13 @@ int main(int argc, char *argv[]){
              //Send request to remote server 
 
              char request[4096];
-             snprintf(request, sizeof(request),
-                "GET /%s HTTP/1.0\r\n"
-                "Host: %s\r\n"
-                "Connection: close\r\n"
-                "\r\n",
-                path, host
-            );
-
+                  snprintf(request, sizeof(request),
+                    "GET %s HTTP/1.0\r\n"
+                    "Host: %s\r\n"
+                    "Connection: close\r\n"
+                    "\r\n",
+                    (*path) ? path : "/", host
+                );
             send(remote_fd, request, strlen(request), 0);
 
             //Relay response back to client
@@ -213,9 +215,7 @@ int main(int argc, char *argv[]){
         }
     
         
-            
-
-
+        
         else{
             //Parent 
             close(client_fd);
@@ -227,4 +227,3 @@ int main(int argc, char *argv[]){
     close(server_fd); //will not actually execute 
     return 0;
 }
-    
