@@ -1,10 +1,6 @@
 # 🌐 IP Subnet Calculator
 
 > A web-based IPv4 subnet calculator supporting Class A / B / C addressing, CIDR notation, Fixed-Length Subnet Masking (FLSM), and Variable-Length Subnet Masking (VLSM).
-
-**Computer Networking Project — FAST NUCES Karachi**
-Areeba Hasnain `23K-00059` · Emman Abrar `23K-0051`
-
 ---
 
 ## 📸 Features
